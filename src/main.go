@@ -16,28 +16,39 @@ func (t *Templates) Render(w io.Writer, name string, data interface{}, c echo.Co
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
-func newTemplate() *Templates {
-	return &Templates{
-		templates: template.Must(template.ParseGlob("views/*.html")),
-	}
-}
-
-type Count struct {
-	Count int
+type Pokemon struct {
+	Id    int
+	Name  string
+	Types []string
 }
 
 func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
-	e.Renderer = newTemplate()
+	e.Renderer = &Templates{
+		templates: template.Must(template.ParseGlob("views/*.html")),
+	}
 
-	count := Count{Count: 0}
+	var pokemons = []Pokemon{
+		{
+			Id:    1,
+			Name:  "Bulbasaur",
+			Types: []string{"Grass", "Poison"},
+		},
+		{
+			Id:    4,
+			Name:  "Charmander",
+			Types: []string{"Fire"},
+		},
+		{
+			Id:    7,
+			Name:  "Squirtle",
+			Types: []string{"Water"},
+		},
+	}
+
 	e.GET("/", func(c echo.Context) error {
-		return c.Render(200, "index", count)
-	})
-	e.POST("count", func(c echo.Context) error {
-		count.Count++
-		return c.Render(200, "count", count)
+		return c.Render(200, "index", pokemons)
 	})
 	e.Logger.Fatal(e.Start(":3000"))
 }

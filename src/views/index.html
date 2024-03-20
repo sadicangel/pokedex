@@ -12,13 +12,21 @@
 </head>
 
 <body>
-    <span id="count"></span>
-    <button hx-target="#count" hx-post="/count">Count</button>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Types</th>
+        </tr>
+        {{ range . }}
+        <tr>
+            <td>{{ .Id }}</td>
+            <td>{{ .Name }}</td>
+            <td>{{ .Types }}</td>
+        </tr>
+        {{ end }}
+    </table>
 </body>
 
 </html>
-{{ end }}
-
-{{ block "count" . }}
-Count: {{ .Count }}
 {{ end }}
