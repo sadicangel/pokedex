@@ -6,7 +6,7 @@
     <title>Pokédex</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' type='text/css' media='screen' href='./styles.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/public/styles.css'>
     <script src="https://unpkg.com/htmx.org@1.9.11"></script>
 </head>
 
@@ -28,7 +28,17 @@
             </div>
             <div class="w-1/12">{{ .Id }}</div>
             <div class="w-3/12">{{ .Name }}</div>
-            <div class="w-3/12">Type</div>
+            <div class="w-3/12">
+                <td>
+                    <div class="flex space-x-1 justify-center">
+                        {{ range .Types }}
+                        <div class="tooltip" data-tip="{{ . }}">
+                            <img class="size-5" src="elements/{{ . }}.png" alt="{{ . }}">
+                        </div>
+                        {{ end }}
+                    </div>
+                </td>
+            </div>
         </a>
         {{ end }}
     </div>

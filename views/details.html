@@ -1,0 +1,55 @@
+{{ block "details" . }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{ .Id}} - {{ .Name }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' media='screen' href='/public/styles.css'>
+    <!-- <script src="https://unpkg.com/htmx.org@1.9.11"></script> -->
+</head>
+
+<body>
+    <div class="overflow-x-auto flex flex-col items-center join">
+        <div class="card w-96 bg-base-100 shadow-xl">
+            <figure>
+                <div class="tooltip" data-tip="{{ .Name }}">
+                    <img src="/public/images/{{ .Image }}" alt="{{ .Name }}" />
+                </div>
+            </figure>
+            <div class="card-body">
+                <h1 class="card-title text-3xl">
+                    {{ .Name }}
+                    <div class="flex space-x-1 justify-center">
+                        {{ range .Types }}
+                        <div class="tooltip" data-tip="{{ . }}">
+                            <img class="size-6" src="elements/{{ . }}.png" alt="{{ . }}">
+                        </div>
+                        {{ end }}
+                    </div>
+                </h1>
+                <div class="grid grid-cols-2 gap-x-4">
+                    <div>HP</div>
+                    <div>{{ .Stats.HP }}</div>
+                    <div>Attack</div>
+                    <div>{{ .Stats.Attack }}</div>
+                    <div>Defense</div>
+                    <div>{{ .Stats.Defense }}</div>
+                    <div>Sp. Attack</div>
+                    <div>{{ .Stats.SpAttack }}</div>
+                    <div>Sp. Defense</div>
+                    <div>{{ .Stats.SpDefense }}</div>
+                    <div>Speed</div>
+                    <div>{{ .Stats.Speed }}</div>
+                </div>
+                <div class="card-actions justify-end">
+                    <a class="btn btn-neutral" href="/">←</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+{{ end }}
